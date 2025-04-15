@@ -1,0 +1,23 @@
+{# templates/home.html.twig #}
+{% extends 'base.html.twig' %}
+{% import 'macros.twig' as macros %}
+
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+    <h2>Welcome to the Home Page</h2>
+    <p>This is some content.</p>
+
+
+    {# Using the macro defined in 'macros.twig' #}
+    {{ macros.renderMessage('Hello, yess!', 'error') }}
+
+
+    {# templates/lucky/number.html.twig #}
+    <h1>Your lucky number is {{ number }}</h1>
+
+
+{% endblock %}
+
+

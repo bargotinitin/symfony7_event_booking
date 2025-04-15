@@ -16,8 +16,16 @@ final class BookingController extends AbstractController
     public function create(EntityManagerInterface $entityManager, Request $request): JsonResponse
     {
         $post_data = json_decode($request->getContent(), true);
-
         $now = new \DateTime();
+
+        $find_booking = $entityManager->getRepository(Booking::class)->findOneBy([
+            'event_id' => $post_data['event_id'],
+            'attendee_id' => $post_data['attendee_id'],
+        ]);
+        if ($find_booking) {
+            return $this->json('Booking exist for the event for the given attendee.', 404);
+        }
+
         $booking = new Booking();
         $booking->setEventId($post_data['event_id']);
         $booking->setAttendeeId($post_data['attendee_id']);

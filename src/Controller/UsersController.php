@@ -37,8 +37,16 @@ final class UsersController extends AbstractController
     #[Route('/user', name: 'user_create', methods: ['post'])]
     public function create(EntityManagerInterface $entityManager, Request $request): JsonResponse
     {
+
         $post_data = json_decode($request->getContent(), true);
         $now = new \DateTime();
+
+        $find_user = $entityManager->getRepository(Users::class)->findOneBy([
+            'email' => $post_data['email']
+        ]);
+        if ($find_user) {
+            return $this->json('User exists with email id ' . $post_data['email'], 404);
+        }
 
         $password = bin2hex(random_bytes(10)); // random string
         $hashed = hash('sha256', $password);

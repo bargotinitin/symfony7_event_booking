@@ -1,0 +1,57 @@
+1. For getting events: http://127.0.0.1:8000/api/event - GET
+
+2. For Creating an event: http://127.0.0.1:8000/api/event - POST
+  Body Json:
+  {
+      "name":"Test event 100",
+      "description":"Test description 100",
+      "start_date":"16-04-2025 09:25:00",
+      "end_date":"17-04-2025 20:25:00",
+      "status":1,
+      "created_by":1,
+      "max_attendees":100
+  }
+
+3. View event - http://127.0.0.1:8000/api/event/1 - GET
+
+4. Update event - http://127.0.0.1:8000/api/event/1 - PUT, PATCH
+  Body json:
+  {
+      "name":"Test event",
+      "description":"Test description",
+      "start_date":"15-04-2025 10:25:00",
+      "end_date":"15-04-2025 20:25:00",
+      "status":1,
+      "created_by":1,
+      "max_attendees":1800
+  }
+
+5. Delete event - http://127.0.0.1:8000/api/event/1 - DELETE
+
+6. For getting all users - http://127.0.0.1:8000/api/users - GET
+
+7. For adding an user - http://127.0.0.1:8000/api/user - POST
+  Body json:
+  {
+      "name":"User 12",
+      "email":"user12@gmail.com"
+  }
+
+8. Add an attendee - http://127.0.0.1:8000/api/add/attendee - POST
+  Body json:
+  {
+      "name":"User 1",
+      "email":"user921@gmail.com",
+      "city":"Sydney",
+      "state":"Sydney",
+      "country":"Australia",
+      "user_id":1
+  }
+
+9. Create a booking - http://127.0.0.1:8000/api/add/booking - POST
+  Body json:
+  {
+      "event_id":2,
+      "attendee_id":1,
+      "user_id":1
+  }

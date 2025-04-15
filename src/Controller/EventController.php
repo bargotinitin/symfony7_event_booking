@@ -48,6 +48,17 @@ class EventController extends AbstractController
         $start_date = new \DateTime($post_data['start_date']);
         $end_date = new \DateTime($post_data['end_date']);
 
+        $find_event = $entityManager->getRepository(Event::class)->findOneBy([
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+        ]);
+        if ($find_event) {
+            return $this->json('Events exists for same date and time', 404);
+        }
+        if (strtotime($post_data['end_date']) < strtotime($post_data['start_date'])) {
+            return $this->json('Start date time should be greater than end date time.', 404);
+        }
+
         $event = new Event();
         $event->setName($post_data['name']);
         $event->setDescription($post_data['description']);

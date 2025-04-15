@@ -16,8 +16,15 @@ final class AttendeeController extends AbstractController
     public function create(EntityManagerInterface $entityManager, Request $request): JsonResponse
     {
         $post_data = json_decode($request->getContent(), true);
-
         $now = new \DateTime();
+
+        $find_attendee = $entityManager->getRepository(Attendee::class)->findOneBy([
+            'email' => $post_data['email'],
+        ]);
+        if ($find_attendee) {
+            return $this->json('Attendee exist with same email id.', 404);
+        }
+
         $attendee = new Attendee();
         $attendee->setName($post_data['name']);
         $attendee->setEmail($post_data['email']);
