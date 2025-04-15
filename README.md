@@ -54,5 +54,22 @@ php -S 127.0.0.1:8000 -t public
     -- Please refer post.txt for json which has to be passed in body.
 
 
+# Test
+
+  Fire this command for creating database separate for testing.
+    php bin/console doctrine:database:create --env=test
+
+  This above command will copy tables from the existing database.
+    php bin/console doctrine:migrations:migrate --env=test
+
+  If things do not work, manually create database and import db.sql again in test
+  database.
+
+Note: if database name is demo, then for running tests keep database name
+      demo_test.
+
+# Run test
+
+  php bin/phpunit tests/EventControllerTest.php
 
 

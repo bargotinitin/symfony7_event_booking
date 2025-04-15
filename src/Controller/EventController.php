@@ -78,6 +78,7 @@ class EventController extends AbstractController
         $data =  [
             'id' => $event->getId(),
             'name' => $event->getName(),
+            'location' => $event->getLocation(),
         ];
 
         return $this->json($data);
