@@ -5,6 +5,7 @@
   {
       "name":"Test event 100",
       "description":"Test description 100",
+      "location": "Australia",
       "start_date":"16-04-2025 09:25:00",
       "end_date":"17-04-2025 20:25:00",
       "status":1,
@@ -19,6 +20,7 @@
   {
       "name":"Test event",
       "description":"Test description",
+      "location": "Australia",
       "start_date":"15-04-2025 10:25:00",
       "end_date":"15-04-2025 20:25:00",
       "status":1,

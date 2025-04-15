@@ -51,6 +51,12 @@ final class BookingController extends AbstractController
             return $this->json('Booking exist for the event for the given attendee.', 404);
         }
 
+        $event_count = $entityManager->getRepository(Booking::class)->countEventBooking($post_data['event_id']);
+        $max_attendee = $find_event->getMaxAttendees();
+        if ($event_count >= $max_attendee) {
+            return $this->json('Booking not allowed, capacity exhausted.', 404);
+        }
+
         $booking = new Booking();
         $booking->setEventId($post_data['event_id']);
         $booking->setAttendeeId($post_data['attendee_id']);

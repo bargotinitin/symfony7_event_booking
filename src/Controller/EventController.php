@@ -26,6 +26,7 @@ class EventController extends AbstractController
                 'id' => $event->getId(),
                 'name' => $event->getName(),
                 'description' => $event->getDescription(),
+                'location' => $event->getLocation(),
                 'start_date' => $event->getStartDate()->format('Y-m-d H:i:s'),
                 'end_date' => $event->getEndDate()->format('Y-m-d H:i:s'),
                 'max_attendees' => $event->getMaxAttendees(),
@@ -62,6 +63,7 @@ class EventController extends AbstractController
         $event = new Event();
         $event->setName($post_data['name']);
         $event->setDescription($post_data['description']);
+        $event->setLocation($post_data['location']);
         $event->setStartDate($start_date);
         $event->setEndDate($end_date);
         $event->setMaxAttendees($post_data['max_attendees']);
@@ -96,6 +98,7 @@ class EventController extends AbstractController
             'id' => $event->getId(),
             'name' => $event->getName(),
             'description' => $event->getDescription(),
+            'location' => $event->getLocation(),
             'start_date' => $event->getStartDate()->format('Y-m-d H:i:s'),
             'end_date' => $event->getEndDate()->format('Y-m-d H:i:s'),
             'max_attendees' => $event->getMaxAttendees(),
@@ -131,6 +134,7 @@ class EventController extends AbstractController
         // $event->setCreated($now);
         $event->setChanged($now);
         $event->setCreatedBy(1);
+        $event->setLocation($post_data['location']);
         $event->setStatus(1);
 
 
@@ -140,6 +144,7 @@ class EventController extends AbstractController
                 'id' => $event->getId(),
                 'name' => $event->getName(),
                 'description' => $event->getDescription(),
+                'location' => $event->getLocation(),
                 'start_date' => $event->getStartDate()->format('Y-m-d H:i:s'),
                 'end_date' => $event->getEndDate()->format('Y-m-d H:i:s'),
                 'max_attendees' => $event->getMaxAttendees(),

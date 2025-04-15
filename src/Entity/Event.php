@@ -50,6 +50,9 @@ class Event
     #[ORM\Column]
     private ?int $created_by = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $location = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +198,18 @@ class Event
     public function setCreatedBy(int $created_by): static
     {
         $this->created_by = $created_by;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): static
+    {
+        $this->location = $location;
 
         return $this;
     }
