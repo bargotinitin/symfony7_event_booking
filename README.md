@@ -56,13 +56,13 @@ php -S 127.0.0.1:8000 -t public
 
 # Test
 
-  Fire this command for creating separate database for testing.
+  ## Fire this command for creating separate database for testing.
     php bin/console doctrine:database:create --env=test
 
-  This above command will copy tables from the existing database.
+  ## This above command will copy tables from the existing database.
     php bin/console doctrine:migrations:migrate --env=test
 
-  If things do not work, manually create database and import db.sql again in test
+  ## If things do not work, manually create database and import db.sql again in test
   database.
 
 Note: if database name is demo, then for running tests keep database name
