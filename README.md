@@ -4,10 +4,10 @@ Event booking API demonstration using Symfony 7.0.10.
 PHP 8.2 is used.
 
 # Checkout or clone the code from repo
-  git init
-  git remote add origin https://github.com/bargotinitin/symfony7_event_booking.git
-  git checkout -b master
-  git pull origin master
+  1. git init
+  2. git remote add origin https://github.com/bargotinitin/symfony7_event_booking.git
+  3. git checkout -b master
+  4. git pull origin master
 
 # Dependency installation
 composer install
