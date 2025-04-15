@@ -56,7 +56,7 @@ php -S 127.0.0.1:8000 -t public
 
 # Test
 
-  Fire this command for creating database separate for testing.
+  Fire this command for creating separate database for testing.
     php bin/console doctrine:database:create --env=test
 
   This above command will copy tables from the existing database.
