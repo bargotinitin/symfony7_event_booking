@@ -1,0 +1,158 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Event;
+
+
+#[Route('/api', name: 'api_')]
+class EventController extends AbstractController
+{
+    #[Route('/event', name: 'event_index', methods:['get'] )]
+    public function index(EntityManagerInterface $entityManager): JsonResponse
+    {
+        $events = $entityManager
+            ->getRepository(Event::class)
+            ->findAll();
+
+        $data = [];
+        foreach ($events as $event) {
+            $data[] = [
+                'id' => $event->getId(),
+                'name' => $event->getName(),
+                'description' => $event->getDescription(),
+                'start_date' => $event->getStartDate()->format('Y-m-d H:i:s'),
+                'end_date' => $event->getEndDate()->format('Y-m-d H:i:s'),
+                'max_attendees' => $event->getMaxAttendees(),
+                'status' => $event->isStatus(),
+                'created' => $event->getCreated()->format('Y-m-d H:i:s'),
+                'changed' =>  $event->getChanged()->format('Y-m-d H:i:s'),
+                'created_by' =>  $event->getCreatedBy(),
+           ];
+        }
+
+        return $this->json($data);
+    }
+
+
+    #[Route('/event', name: 'event_create', methods:['post'] )]
+    public function create(EntityManagerInterface $entityManager, Request $request): JsonResponse
+    {
+        $post_data = json_decode($request->getContent(), true);
+        $now = new \DateTime();
+        $start_date = new \DateTime($post_data['start_date']);
+        $end_date = new \DateTime($post_data['end_date']);
+
+        $event = new Event();
+        $event->setName($post_data['name']);
+        $event->setDescription($post_data['description']);
+        $event->setStartDate($start_date);
+        $event->setEndDate($end_date);
+        $event->setMaxAttendees($post_data['max_attendees']);
+        $event->setCreated($now);
+        $event->setChanged($now);
+        $event->setCreatedBy(1);
+        $event->setStatus(1);
+
+        $entityManager->persist($event);
+        $entityManager->flush();
+
+        $data =  [
+            'id' => $event->getId(),
+            'name' => $event->getName(),
+        ];
+
+        return $this->json($data);
+    }
+
+
+    #[Route('/event/{id}', name: 'event_show', methods:['get'] )]
+    public function show(EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        $event = $entityManager->getRepository(Event::class)->find($id);
+
+        if (!$event) {
+
+            return $this->json('No event found for id ' . $id, 404);
+        }
+
+        $data =  [
+            'id' => $event->getId(),
+            'name' => $event->getName(),
+            'description' => $event->getDescription(),
+            'start_date' => $event->getStartDate()->format('Y-m-d H:i:s'),
+            'end_date' => $event->getEndDate()->format('Y-m-d H:i:s'),
+            'max_attendees' => $event->getMaxAttendees(),
+            'status' => $event->isStatus(),
+            'created' => $event->getCreated()->format('Y-m-d H:i:s'),
+            'changed' =>  $event->getChanged()->format('Y-m-d H:i:s'),
+            'created_by' =>  $event->getCreatedBy(),
+        ];
+
+        return $this->json($data);
+    }
+
+    #[Route('/event/{id}', name: 'event_update', methods:['put', 'patch'] )]
+    public function update(EntityManagerInterface $entityManager, Request $request, int $id): JsonResponse
+    {
+        $event = $entityManager->getRepository(Event::class)->find($id);
+
+        if (!$event) {
+            return $this->json('No event found for id ' . $id, 404);
+        }
+
+
+        $post_data = json_decode($request->getContent(), true);
+        $now = new \DateTime();
+        $start_date = new \DateTime($post_data['start_date']);
+        $end_date = new \DateTime($post_data['end_date']);
+
+        $event->setName($post_data['name']);
+        $event->setDescription($post_data['description']);
+        $event->setStartDate($start_date);
+        $event->setEndDate($end_date);
+        $event->setMaxAttendees($post_data['max_attendees']);
+        // $event->setCreated($now);
+        $event->setChanged($now);
+        $event->setCreatedBy(1);
+        $event->setStatus(1);
+
+
+        $entityManager->flush();
+
+        $data =  [
+                'id' => $event->getId(),
+                'name' => $event->getName(),
+                'description' => $event->getDescription(),
+                'start_date' => $event->getStartDate()->format('Y-m-d H:i:s'),
+                'end_date' => $event->getEndDate()->format('Y-m-d H:i:s'),
+                'max_attendees' => $event->getMaxAttendees(),
+                'status' => $event->isStatus(),
+                'created' => $event->getCreated()->format('Y-m-d H:i:s'),
+                'changed' =>  $event->getChanged()->format('Y-m-d H:i:s'),
+                'created_by' =>  $event->getCreatedBy(),
+        ];
+
+        return $this->json($data);
+    }
+
+    #[Route('/event/{id}', name: 'event_delete', methods:['delete'] )]
+    public function delete(EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        $event = $entityManager->getRepository(Event::class)->find($id);
+
+        if (!$event) {
+            return $this->json('No event found for id ' . $id, 404);
+        }
+
+        $entityManager->remove($event);
+        $entityManager->flush();
+
+        return $this->json('Deleted a event successfully with id ' . $id);
+    }
+}
