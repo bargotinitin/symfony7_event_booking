@@ -57,7 +57,7 @@ php -S 127.0.0.1:8000 -t public
 # Postman collection
 
   ## For using the APIs in postman, please import this collection.
-  File name: Event Booking Collection.postman_collection.json
+    File name: Event Booking Collection.postman_collection.json
 
 # Test
 
