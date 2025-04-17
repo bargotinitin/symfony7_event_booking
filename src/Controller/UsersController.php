@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Users;
+use App\Utils\ArrayHelper;
 
 #[Route('/api', name: 'api_')]
 final class UsersController extends AbstractController
@@ -39,6 +40,12 @@ final class UsersController extends AbstractController
     {
 
         $post_data = json_decode($request->getContent(), true);
+        // Field validations.
+        $fields = implode(',', array_keys($post_data));
+        if (!ArrayHelper::validateRequiredFields($post_data, ['name', 'email'])) {
+            return $this->json('Either fields(' . $fields . ') names not correct or values are not provided.', 404);
+        }
+
         $now = new \DateTime();
 
         $find_user = $entityManager->getRepository(Users::class)->findOneBy([

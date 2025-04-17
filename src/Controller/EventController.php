@@ -8,7 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Event;
-
+use App\Entity\Users;
+use App\Utils\ArrayHelper;
 
 #[Route('/api', name: 'api_')]
 class EventController extends AbstractController
@@ -45,6 +46,19 @@ class EventController extends AbstractController
     public function create(EntityManagerInterface $entityManager, Request $request): JsonResponse
     {
         $post_data = json_decode($request->getContent(), true);
+
+        // Field validations.
+        $fields = implode(',', array_keys($post_data));
+        if (!ArrayHelper::validateRequiredFields($post_data, ['name', 'description', 'location', 'start_date', 'end_date', 'status', 'created_by', 'max_attendees'])) {
+            return $this->json('Either fields(' . $fields . ') names not correct or values are not provided.', 404);
+        }
+        $find_user = $entityManager->getRepository(Users::class)->findOneBy([
+            'id' => $post_data['created_by'],
+        ]);
+        if (!$find_user) {
+            return $this->json('User Id does not match.', 404);
+        }
+
         $now = new \DateTime();
         $start_date = new \DateTime($post_data['start_date']);
         $end_date = new \DateTime($post_data['end_date']);
@@ -123,6 +137,19 @@ class EventController extends AbstractController
 
 
         $post_data = json_decode($request->getContent(), true);
+
+        // Field validations.
+        $fields = implode(',', array_keys($post_data));
+        if (!ArrayHelper::validateRequiredFields($post_data, ['name', 'description', 'location', 'start_date', 'end_date', 'status', 'created_by', 'max_attendees'])) {
+            return $this->json('Either fields(' . $fields . ') names not correct or values are not provided.', 404);
+        }
+        $find_user = $entityManager->getRepository(Users::class)->findOneBy([
+            'id' => $post_data['created_by'],
+        ]);
+        if (!$find_user) {
+            return $this->json('User Id does not match.', 404);
+        }
+
         $now = new \DateTime();
         $start_date = new \DateTime($post_data['start_date']);
         $end_date = new \DateTime($post_data['end_date']);
