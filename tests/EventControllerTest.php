@@ -15,8 +15,8 @@ class EventControllerTest extends WebTestCase {
             "name" => "Test event",
             "description" => "Test description",
             "location" => "Australia",
-            "start_date" => date("Y-m-d h:i:s"),
-            "end_date" => date("Y-m-d h:i:s", strtotime('tomorrow')),
+            "start_date" => date("Y-m-d h:i:s", strtotime('+100 day')),
+            "end_date" => date("Y-m-d h:i:s", strtotime('+101 day')),
             "status" => 1,
             "created_by" => $this->createUser($client),
             "max_attendees" => 100
