@@ -71,8 +71,12 @@ php -S 127.0.0.1:8000 -t public
 
   Note: if database name is demo, then for running tests keep database name demo_test.
 
-# Run test
+# Run individual tests
 
+  php bin/phpunit tests/UserControllerTest.php
   php bin/phpunit tests/EventControllerTest.php
+  php bin/phpunit tests/AttendeeControllerTest.php
+  php bin/phpunit tests/BookingControllerTest.php
 
-
+# Run all tests in one go
+  php bin/phpunit tests
