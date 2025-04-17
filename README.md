@@ -1,7 +1,12 @@
 # Introduction
 
-Event booking API demonstration using Symfony 7.0.10.
-PHP 8.2 is used.
+  Event booking API demonstration using Symfony 7.0.10.
+
+  ## Tech Stack Used
+    Programming language - PHP 8.2
+    Dependency management - composer 2
+    Web Server - Apache 2
+    Database - MySQL 8
 
 # Checkout or clone the code from repo
   1. git init
@@ -10,13 +15,13 @@ PHP 8.2 is used.
   4. git pull origin master
 
 # Dependency installation
-composer install
+    composer install
 
 # Configure database
 Make sure from .env file database is mapped.
 
 # Database creation
-php bin/console doctrine:database:create
+    php bin/console doctrine:database:create
 
 # SQL file import
   1. Empty migrations folder, now fire further commands.
@@ -26,7 +31,7 @@ php bin/console doctrine:database:create
 If above steps do not work, import db.sql into database which is provided in root folder.
 
 # Running the application - fire below command.
-php -S 127.0.0.1:8000 -t public
+    php -S 127.0.0.1:8000 -t public
 
 # APIs
 
@@ -64,7 +69,7 @@ php -S 127.0.0.1:8000 -t public
   ## Fire this command for creating separate database for testing.
     php bin/console doctrine:database:create --env=test
 
-  ## The bleow command will copy tables from the existing database.
+  ## The below command will copy tables from the existing database.
     php bin/console doctrine:migrations:migrate --env=test
 
   If things do not work, manually create database and import db.sql again in test database.
