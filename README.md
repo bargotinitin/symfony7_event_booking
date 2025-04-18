@@ -1,9 +1,9 @@
 # Introduction
-
-  Event booking API demonstration using Symfony 7.0.10.
+  This application provides a robust set of RESTful APIs that allow users to book events, manage attendees, and organize event details. The API suite supports event creation, attendee registration, user creation, and data retrieval.
 
   ## Tech Stack Used
     Programming language - PHP 8.2
+    Framework - Symfony 7.0.10
     Dependency management - composer 2
     Web Server - Apache 2
     Database - MySQL 8
