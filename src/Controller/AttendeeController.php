@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Dto\ErrorDto;
+use App\Dto\SuccessDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,9 +20,9 @@ final class AttendeeController extends AbstractController
         $post_data = json_decode($request->getContent(), true);
         $validate = Validate::validateAttendee($entityManager, $post_data);
         if ($validate) {
-            return $this->json($validate, 404);
+            return $this->json(new ErrorDto($validate), 400);
         }
         $data = AttendeeModel::saveData($entityManager, $post_data);
-        return $this->json($data);
+        return $this->json(new SuccessDto($data));
     }
 }

@@ -4,7 +4,7 @@ namespace App\Validations;
 
 use App\Entity\Attendee;
 use App\Entity\Users;
-use App\Utils\ArrayHelper;
+use App\Utils\ValidateFields;
 use App\Entity\Booking;
 use App\Entity\Event;
 
@@ -17,7 +17,7 @@ class Validate
   public static function validateAttendee($entityManager, $post_data) {
     // Field validations.
     $fields = implode(',', array_keys($post_data));
-    if (!ArrayHelper::validateRequiredFields($post_data, ['name', 'email', 'city', 'state', 'country', 'user_id'])) {
+    if (!ValidateFields::validateRequiredFields($post_data, ['name', 'email', 'city', 'state', 'country', 'user_id'])) {
       return 'Either fields(' . $fields . ') names not correct or values are not provided.';
     }
 
@@ -83,7 +83,7 @@ class Validate
   public static function validateEvent($entityManager, $post_data) {
       // Field validations.
       $fields = implode(',', array_keys($post_data));
-      if (!ArrayHelper::validateRequiredFields($post_data, ['name', 'description', 'location', 'start_date', 'end_date', 'status', 'created_by', 'max_attendees'])) {
+      if (!ValidateFields::validateRequiredFields($post_data, ['name', 'description', 'location', 'start_date', 'end_date', 'status', 'created_by', 'max_attendees'])) {
           return 'Either fields(' . $fields . ') names not correct or values are not provided.';
       }
       $find_user = $entityManager->getRepository(Users::class)->findOneBy([
@@ -118,7 +118,7 @@ class Validate
     }
     // Field validations.
     $fields = implode(',', array_keys($post_data));
-    if (!ArrayHelper::validateRequiredFields($post_data, ['name', 'description', 'location', 'start_date', 'end_date', 'status', 'created_by', 'max_attendees'])) {
+    if (!ValidateFields::validateRequiredFields($post_data, ['name', 'description', 'location', 'start_date', 'end_date', 'status', 'created_by', 'max_attendees'])) {
       return 'Either fields(' . $fields . ') names not correct or values are not provided.';
     }
     $find_user = $entityManager->getRepository(Users::class)->findOneBy([
@@ -135,7 +135,7 @@ class Validate
   public static function validateUsers($entityManager, $post_data) {
     // Field validations.
     $fields = implode(',', array_keys($post_data));
-    if (!ArrayHelper::validateRequiredFields($post_data, ['name', 'email'])) {
+    if (!ValidateFields::validateRequiredFields($post_data, ['name', 'email'])) {
       return 'Either fields(' . $fields . ') names not correct or values are not provided.';
     }
 

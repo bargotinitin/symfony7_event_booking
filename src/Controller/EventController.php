@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Dto\ErrorDto;
+use App\Dto\SuccessDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,9 +22,8 @@ class EventController extends AbstractController
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
         $data = EventModel::getAllData($entityManager);
-        return $this->json($data);
+        return $this->json(new SuccessDto($data));
     }
-
 
     #[Route('/event', name: 'event_create', methods:['post'] )]
     public function create(EntityManagerInterface $entityManager, Request $request): JsonResponse
@@ -30,21 +31,20 @@ class EventController extends AbstractController
         $post_data = json_decode($request->getContent(), true);
         $validate = Validate::validateEvent($entityManager, $post_data);
         if ($validate) {
-            return $this->json($validate, 404);
+            return $this->json(new ErrorDto($validate), 400);
         }
         $data = EventModel::saveData($entityManager, $post_data);
-        return $this->json($data);
+        return $this->json(new SuccessDto($data));
     }
-
 
     #[Route('/event/{id}', name: 'event_show', methods:['get'] )]
     public function show(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         $data = EventModel::getData($entityManager, $id);
         if (!is_array($data)) {
-            return $this->json($data, 404);
+            return $this->json(new ErrorDto($data), 400);
         }
-        return $this->json($data);
+        return $this->json(new SuccessDto($data));
     }
 
     #[Route('/event/{id}', name: 'event_update', methods:['put', 'patch'] )]
@@ -53,10 +53,10 @@ class EventController extends AbstractController
         $post_data = json_decode($request->getContent(), true);
         $validate = Validate::validateUpdateEvent($entityManager, $post_data, $id);
         if (!empty($validate)) {
-            return $this->json($validate, 404);
+            return $this->json(new ErrorDto($validate), 400);
         }
         $data = EventModel::updateData($entityManager, $post_data, $id);
-        return $this->json($data);
+        return $this->json(new SuccessDto($data));
     }
 
     #[Route('/event/{id}', name: 'event_delete', methods:['delete'] )]
@@ -64,8 +64,8 @@ class EventController extends AbstractController
     {
         $data = EventModel::deleteData($entityManager, $id);
         if (!is_array($data)) {
-            return $this->json($data, 404);
+            return $this->json(new ErrorDto($data), 400);
         }
-        return $this->json($data['message']);
+        return $this->json(new SuccessDto($data));
     }
 }

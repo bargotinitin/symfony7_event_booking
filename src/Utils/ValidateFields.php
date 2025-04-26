@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-class ArrayHelper
+class ValidateFields
 {
     public static function validateRequiredFields(array $array, array $requiredKeys): bool
     {

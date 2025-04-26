@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Dto\ErrorDto;
+use App\Dto\SuccessDto;
 use App\Entity\Attendee;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,9 +22,9 @@ final class BookingController extends AbstractController
         $post_data = json_decode($request->getContent(), true);
         $validate = Validate::validateBooking($entityManager, $post_data);
         if ($validate) {
-            return $this->json($validate, 404);
+            return $this->json(new ErrorDto($validate), 400);
         }
         $data = BookingModel::saveData($entityManager, $post_data);
-        return $this->json($data);
+        return $this->json(new SuccessDto($data));
     }
 }
