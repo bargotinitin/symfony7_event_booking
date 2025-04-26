@@ -6,6 +6,26 @@ use App\Entity\Users;
 
 class UsersModel
 {
+
+    /**
+     * Get data.
+     */
+    public static function getData($entityManager) {
+      $users = $entityManager
+        ->getRepository(Users::class)
+        ->findAll();
+
+      $data = [];
+      foreach ($users as $user) {
+        $data[] = [
+          'id' => $user->getId(),
+          'name' => $user->getUserName(),
+          'email' => $user->getEmail(),
+        ];
+      }
+      return $data;
+    }
+
     /**
      * Save data.
      */

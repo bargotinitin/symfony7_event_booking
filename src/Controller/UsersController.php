@@ -22,20 +22,8 @@ final class UsersController extends AbstractController
     #[Route('/users', name: 'users_index', methods: ['get'])]
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
-        $users = $entityManager
-            ->getRepository(Users::class)
-            ->findAll();
-
-        $data = [];
-        foreach ($users as $user) {
-            $data[] = [
-                'id' => $user->getId(),
-                'name' => $user->getUserName(),
-                'email' => $user->getEmail(),
-            ];
-        }
-
-        return $this->json($data);
+        $data = UsersModel::getData($entityManager);
+        return $this->json(new SuccessDto($data));
     }
 
 
