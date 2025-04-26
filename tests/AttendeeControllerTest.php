@@ -31,6 +31,7 @@ class AttendeeControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         $this->assertArrayHasKey('id', $result);
         $this->assertEquals($data['name'], $result['name']);
         $this->assertEquals($data['email'], $result['email']);
@@ -58,6 +59,7 @@ class AttendeeControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         return $result['id'];
     }
 

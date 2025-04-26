@@ -27,6 +27,7 @@ class UserControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         $this->assertArrayHasKey('id', $result);
         $this->assertEquals($data['name'], $result['username']);
         $this->assertEquals($data['email'], $result['email']);

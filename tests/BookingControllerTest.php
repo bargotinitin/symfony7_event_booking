@@ -41,6 +41,7 @@ class BookingControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         $this->assertArrayHasKey('id', $result);
         $this->assertEquals($event_id, $result['event_id']);
     }
@@ -58,6 +59,7 @@ class BookingControllerTest extends WebTestCase {
             json_encode($data)
         );
         $event = json_decode($client->getResponse()->getContent(), true);
+        $event = $event['data'];
         return $event;
     }
 
@@ -82,6 +84,7 @@ class BookingControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         return $result['id'];
     }
 
@@ -108,6 +111,7 @@ class BookingControllerTest extends WebTestCase {
             json_encode($data)
         );
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         return $result['id'];
     }
 

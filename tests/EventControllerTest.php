@@ -65,7 +65,7 @@ class EventControllerTest extends WebTestCase {
             json_encode($modified_data)
         );
         $result = json_decode($client->getResponse()->getContent(), true);
-
+        $result = $result['data'];
         $this->assertArrayHasKey('id', $result);
         $this->assertStringContainsStringIgnoringCase('modified', $result['name']);
         $this->assertStringContainsStringIgnoringCase('modified', $result['description']);
@@ -98,6 +98,7 @@ class EventControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         $this->assertArrayHasKey('id', $result);
         $this->assertEquals($data['name'], $result['name']);
         $this->assertEquals($data['location'], $result['location']);
@@ -131,6 +132,7 @@ class EventControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data']['message'];
         $this->assertEquals($message, $result);
     }
 
@@ -147,6 +149,7 @@ class EventControllerTest extends WebTestCase {
             json_encode($data)
         );
         $event = json_decode($client->getResponse()->getContent(), true);
+        $event = $event['data'];
         return $event;
     }
 
@@ -171,6 +174,7 @@ class EventControllerTest extends WebTestCase {
         );
 
         $result = json_decode($client->getResponse()->getContent(), true);
+        $result = $result['data'];
         return $result['id'];
     }
 
