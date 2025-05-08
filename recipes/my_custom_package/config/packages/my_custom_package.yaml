@@ -1,0 +1,3 @@
+# config/packages/my_custom_package.yaml
+my_custom_package:
+    some_parameter: 'value'

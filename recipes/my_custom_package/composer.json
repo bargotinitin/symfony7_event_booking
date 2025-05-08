@@ -1,0 +1,9 @@
+{
+  "name": "johnsmith/my_custom_package",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "JohnSmith\\MyCustomPackage\\": "src/"
+    }
+  }
+}

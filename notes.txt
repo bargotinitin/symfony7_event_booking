@@ -1,0 +1,19 @@
+
+
+Coding standard
+----------------
+
+1. single space after comma delimeters.
+2. single space operators.
+
+
+Naming conventions
+----------------
+camel case of variables, methods, function and arguments.
+
+Every word of namespace should be in the capital letter.
+
+--------------------------
+
+default namespace is App in symfony.
+

@@ -1,16 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Website{% endblock %}</title>
 
-        {% block javascripts %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}"/>
+    {% endblock %}
+
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+</head>
+<body>
+
+    <header>
+        {% block header %}
+            <h1>My Website Header</h1>
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    </header>
+
+
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+
+    <main>
+        <aside>
+            {% block sidebar1 %}
+                <p>Left Sidebar</p>
+            {% endblock %}
+        </aside>
+
+        <section class="content">
+            {% block content %}
+                <p>Main content goes here.</p>
+            {% endblock %}
+        </section>
+
+        <aside>
+            {% block sidebar2 %}
+                <p>Right Sidebar</p>
+            {% endblock %}
+        </aside>
+    </main>
+
+    <footer>
+        {% block footer %}
+            <p>My Website Footer © 2025</p>
+        {% endblock %}
+    </footer>
+
+</body>
 </html>

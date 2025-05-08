@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UsersRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users
@@ -15,6 +16,7 @@ class Users
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Name should not be empty")]
     private ?string $username = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -39,6 +41,7 @@ class Users
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $email = null;
 
     #[ORM\Column(nullable: true)]
